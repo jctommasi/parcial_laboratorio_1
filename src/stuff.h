@@ -24,4 +24,10 @@ void stuff_showModifyBanner();
 void stuff_showPaginateBanner();
 void stuff_employeeGoneAway();
 
+void stuff_showProcesarPedido();
+void stuff_showFichaje();
+void stuff_showClientePendientes();
+void stuff_showRecoleccionesPendientes();
+void stuff_showRecoleccionesCompletas();
+
 #endif /* STUFF_H_ */

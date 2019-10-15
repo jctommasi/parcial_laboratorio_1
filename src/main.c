@@ -15,29 +15,29 @@ int main(void)
 /*
 	Cliente arrayCliente[DB_LENGHT];
 	cliente_clear_all(arrayCliente,DB_LENGHT_CLIENTE);
-
-
 */
+
 	Cliente arrayCliente[DB_LENGHT_CLIENTE]=
 	{
-		{ 0, 0, 144, "SUTEBA SOC.A", "San Luis 301", "CABA"},
+		//idUnico,isEmpty,cuit,empresa,direccion,localidad
+		{ 0, 0, 144, "SUTEBA SOC.A", "San Luis 301", "B.A. -- CABA"},
 		{ 1, 0, 251, "UTN AVELLANEDA", "9 de Julio 20", "Avellaneda"},
-		{ 2, 0, 144, "KIOSKO CARLITOS", "Lavalle 200", "General Rodriguez"},
-		{ 3, 0, 413, "UBA SOCIALES", "Carlos Calvo 200", "CABA"},
+		{ 2, 0, 144, "MIX CARLITOS", "Lavalle 200", "Gral Rodriguez"},
+		{ 3, 0, 413, "UBA SOCIALES", "Carlos C. 200", "B.A. -- CABA"},
 		{ 4, 0, 420, "PERTUTTI AV", "Peru 1500", "Avellaneda"},
-		{ 5, 0, 111, "GOMEZ SOC.A", "Independencia 1013", "Temperley"},
+		{ 5, 0, 111, "GOMEZ SOC.A", "Av. Indep. 13", "Temperley"},
 	};
 
 	Recoleccion arrayRecoleccion[DB_LENGHT_RECOLECCION]=
 	{
-		{ 0, 0, 1, 251, 0, 0, 0, 0},
-		{ 1, 0, 2, 144, 0, 0, 0, 0},
-		{ 2, 0, 3, 413, 0, 0, 0, 0},
+		//idUnico,isEmpty,id_cliente,kg_residuos_a_procesar,estado,kg_HDPE,kg_LDPE,kg_PP
+		{ 1000, 0, 1, 651, 0, 0, 0, 0},
+		{ 1001, 0, 2, 444, 0, 0, 0, 0},
+		{ 1002, 0, 3, 101, 0, 0, 0, 0},
 	};
 
 	do
 	{
-		stuff_displayMainBanner();
 		stuff_clearScreen();
 		stuff_displayMainBanner();
 		stuff_showMenu();
@@ -77,7 +77,8 @@ int main(void)
 				if(recoleccion_checkIfDbHasEntries(arrayRecoleccion, DB_LENGHT_RECOLECCION) >= 0)
 				{
 					stuff_clearScreen();
-					stuff_showModifyBanner();
+					stuff_showProcesarPedido();
+					recoleccion_paginate_pendiente(arrayRecoleccion, DB_LENGHT_RECOLECCION);
 					recoleccion_process(arrayRecoleccion, DB_LENGHT_RECOLECCION);
 				} else {stuff_printAndSleep(2, NO_RECOLECCION_ERROR);}
 				break;
@@ -85,8 +86,24 @@ int main(void)
 				if(recoleccion_checkIfDbHasEntries(arrayRecoleccion, DB_LENGHT_RECOLECCION) >= 0)
 				{
 					stuff_clearScreen();
-					stuff_showModifyBanner();
+					stuff_showClientePendientes();
 					cliente_print_with_pend(arrayCliente, DB_LENGHT_CLIENTE, arrayRecoleccion, DB_LENGHT_RECOLECCION);
+				} else {stuff_printAndSleep(2, NO_RECOLECCION_ERROR);}
+				break;
+			case 7:
+				if(recoleccion_checkIfDbHasEntries(arrayRecoleccion, DB_LENGHT_RECOLECCION) >= 0)
+				{
+					stuff_clearScreen();
+					stuff_showRecoleccionesPendientes();
+					cliente_print_pend(arrayCliente, DB_LENGHT_CLIENTE, arrayRecoleccion, DB_LENGHT_RECOLECCION);
+				} else {stuff_printAndSleep(2, NO_RECOLECCION_ERROR);}
+				break;
+			case 8:
+				if(recoleccion_checkIfDbHasEntries(arrayRecoleccion, DB_LENGHT_RECOLECCION) >= 0)
+				{
+					stuff_clearScreen();
+					stuff_showRecoleccionesCompletas();
+					cliente_print_comp(arrayCliente, DB_LENGHT_CLIENTE, arrayRecoleccion, DB_LENGHT_RECOLECCION);
 				} else {stuff_printAndSleep(2, NO_RECOLECCION_ERROR);}
 				break;
 			default:

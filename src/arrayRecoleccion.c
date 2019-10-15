@@ -162,7 +162,7 @@ int recoleccion_process(Recoleccion array[], int sizeArray)
 
     if(array!=NULL && sizeArray>0)
     {
-        utn_getUnsignedInt("\n\t\t\t\t\t Ingrese el ID a procesar: ","\nError",1,9999,1,sizeArray,1,&id);
+        utn_getUnsignedInt("\n\t\t Ingrese el ID del pedido a procesar: ","\nError",1,9999,1,sizeArray,1,&id);
         if(recoleccion_findId(array,sizeArray,id,&posicion)==-1)
         {
             printf("\n\n\n"
@@ -181,25 +181,27 @@ int recoleccion_process(Recoleccion array[], int sizeArray)
         	int kg_LDPE = 0;
         	int kg_PP = 0;
             stuff_clearScreen();
+            stuff_showFichaje();
             printf("\n\n\n"
             		"\033[0;31m"
-            		"\t\t\t\t\t\t##############\n"
-            		"\t\t\t\t\t\tESPECIFIQUE LA CANTIDAD DE PLASTICO QUE SE PROCESO\n"
-            		"\t\t\t\t\t\t##############\n"
-            		"\n\n\t\t\t\t\t\n"
+            		"\t\t\t\t\t########################################################\n"
+            		"\t\t\t\t\tESPECIFIQUE LA CANTIDAD DE PLASTICO QUE SE PROCESO\n"
+            		"\t\t\t\t\t########################################################\n"
+            		"\n\n\t\t\t\t\n"
             		"\033[0m");
 
             //KG DE PLASTICO A SEPARAR
-            printf("Cant. de kg a procesar restantes: %d", kg_pedido);
+
+            printf("\t\t\t\t\t\tCant. de kg a procesar restantes: %d", kg_pedido);
             utn_getUnsignedInt("\n\t\t\t\t\t Ingrese los kg de HDPE: ","\nError",1,kg_pedido,1,kg_pedido,1,&kg_HDPE);
             kg_pedido = kg_pedido - kg_HDPE;
-            printf("Cant. de kg a procesar restantes: %d", kg_pedido);
+            printf("\t\t\t\t\t\tCant. de kg a procesar restantes: %d", kg_pedido);
             utn_getUnsignedInt("\n\t\t\t\t\t Ingrese los kg de LDPE: ","\nError",1,kg_pedido,1,kg_pedido,1,&kg_LDPE);
             kg_pedido = kg_pedido - kg_LDPE;
-            printf("Cant. de kg a procesar restantes: %d", kg_pedido);
+            printf("\t\t\t\t\t\tCant. de kg a procesar restantes: %d", kg_pedido);
             utn_getUnsignedInt("\n\t\t\t\t\t Ingrese los kg de PP: ","\nError",1,kg_pedido,1,kg_pedido,1,&kg_PP);
             kg_pedido = kg_pedido - kg_PP;
-            printf("Se desecharan: %d kg de este pedido", kg_pedido);
+            printf("\t\t\t\t\t\tSe desecharan: %d kg de este pedido", kg_pedido);
 
             //GUARDANDO LOS DATOS Y COMPLETANDO PEDIDO
 
@@ -227,6 +229,8 @@ int recoleccion_process(Recoleccion array[], int sizeArray)
 				   array[posicion].kg_HDPE,
 				   array[posicion].kg_LDPE,
 				   array[posicion].kg_PP);
+
+            stuff_printAndSleep(5, "\n\t\t\t\t\t\tvolviendo al menu principal..\n");
             retorno=0;
         }
     }
@@ -241,53 +245,21 @@ int recoleccion_paginate_pendiente(Recoleccion array[], int size)
     if(array!=NULL && size>=0)
     {
     	printf(	"#########################################################################################################################\n"
-    			"|\tID\t|\tCUIT\t|\t\tKG A PROCESAR\t\t\t|\tESTADO\t|\n"
+    			"|\tID\t|\tCUIT\t|\t\tKG A PROCESAR\t\t|\tESTADO\t\t|\n"
     			"#########################################################################################################################\n");
         for(i=0;i<size;i++)
         {
-            if(array[i].isEmpty==1 && array[i].estado==0)
+            if(array[i].isEmpty==1 || array[i].estado==1)
                 continue;
             else
-            	printf("|\t%d\t|\t%d\t|\t\t%d\t\t\t|\tPENDIENTE\t\t|\n",
+            	printf("|\t%d\t|\t%d\t|\t\t%d\t\t\t|\tPENDIENTE\t|\n",
                        array[i].idUnico,
 					   array[i].id_cliente,
 					   array[i].kg_residuos_a_procesar);
         }
         retorno=0;
-        stuff_sleep(5);
     }
     return retorno;
 }
 
-int recoleccion_print_pend(Cliente arrayCliente[], int sizeCliente, Recoleccion arrayRecoleccion[], int sizeRec)
-{
-    int retorno=-1;
-    int i;
-    if(arrayCliente!=NULL && sizeCliente>=0)
-    {
-    	printf(	"#########################################################################################################################\n"
-    			"|\tCUIT\t|\t\tDIRECCION\t\t\t|\tKG A RECOLECTAR\t\t|\n"
-    			"#########################################################################################################################\n");
-        for(i=0;i<sizeRec;i++)
-        {
-        	if(arrayRecoleccion[i].estado==0)
-                continue;
-            else
-            {
-
-				//fin cont de pendientes
-            	printf("|\t%d\t|\t%d\t|\t\t%s\t\t\t|\t%s\t\t|\t%s\t\t|\t%d\t\t|\n",
-            			arrayCliente[i].idUnico,
-						arrayCliente[i].cuit,
-						arrayCliente[i].empresa,
-						arrayCliente[i].direccion,
-						arrayCliente[i].localidad,
-						contPend);
-            }
-        }
-        retorno=0;
-        stuff_sleep(1);
-    }
-    return retorno;
-}
 

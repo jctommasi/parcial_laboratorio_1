@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "utn.h"
 #include "stuff.h"
-#include "arrayCliente.h"
+
 
 typedef struct
 {
@@ -38,5 +38,3 @@ int recoleccion_destroyMatchedInt(Recoleccion array[], int sizeArray, int valorB
 int recoleccion_process(Recoleccion array[], int sizeArray);
 int recoleccion_sortByString(Recoleccion array[],int size);
 int recoleccion_paginate_pendiente(Recoleccion array[], int size);
-
-/*int cliente_info_getSalaryMedia(Cliente array[], int size);*/

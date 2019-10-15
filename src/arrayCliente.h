@@ -27,6 +27,7 @@
 #include "stuff.h"
 #include "arrayRecoleccion.h"
 
+
 typedef struct
 {
     int idUnico;
@@ -53,5 +54,5 @@ int cliente_modify(Cliente array[], int sizeArray);
 int cliente_sortByString(Cliente array[],int size);
 int cliente_paginate(Cliente array[], int size);
 int cliente_print_with_pend(Cliente arrayCliente[], int sizeCliente, Recoleccion arrayRecoleccion[], int sizeRec);
-
-/*int cliente_info_getSalaryMedia(Cliente array[], int size);*/
+int cliente_print_pend(Cliente arrayCliente[], int sizeCliente, Recoleccion arrayRecoleccion[], int sizeRec);
+int cliente_print_comp(Cliente arrayCliente[], int sizeCliente, Recoleccion arrayRecoleccion[], int sizeRec);

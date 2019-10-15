@@ -396,15 +396,15 @@ int cliente_paginate(Cliente array[], int size)
     int i;
     if(array!=NULL && size>=0)
     {
-    	printf(	"#########################################################################################################################\n"
+    	printf(	"############################################################################################################################################\n"
     			"|\tID\t|\tCUIT\t|\t\tEMPRESA\t\t\t|\tDIRECCION\t\t|\tLOCALIDAD\t\t|\n"
-    			"#########################################################################################################################\n");
+    			"############################################################################################################################################\n");
         for(i=0;i<size;i++)
         {
             if(array[i].isEmpty==1)
                 continue;
             else
-            	printf("|\t%d\t|\t%d\t|\t\t%s\t\t\t|\t%s\t\t|\t%s\t\t|\n",
+            	printf("|\t%d\t|\t%d\t|\t\t%s\t\t|\t%s\t\t|\t%s\t\t|\n",
                        array[i].idUnico,
 					   array[i].cuit,
 					   array[i].empresa,
@@ -424,7 +424,7 @@ int cliente_print_with_pend(Cliente arrayCliente[], int sizeCliente, Recoleccion
     if(arrayCliente!=NULL && sizeCliente>=0)
     {
     	printf(	"#########################################################################################################################\n"
-    			"|\tID\t|\tCUIT\t|\t\tEMPRESA\t\t\t|\tDIRECCION\t\t|\tLOCALIDAD\t\t|\tCANT. PENDIENTES\t\t|\n"
+    			"|ID\t|CUIT\t|EMPRESA\t\t|DIRECCION\t\t\t|LOCALIDAD\t\t\t|CANT. PENDIENTES\t\t|\n"
     			"#########################################################################################################################\n");
         for(i=0;i<sizeCliente;i++)
         {
@@ -443,7 +443,7 @@ int cliente_print_with_pend(Cliente arrayCliente[], int sizeCliente, Recoleccion
 						}
 					}
 				//fin cont de pendientes
-            	printf("|\t%d\t|\t%d\t|\t\t%s\t\t\t|\t%s\t\t|\t%s\t\t|\t%d\t\t|\n",
+            	printf("|%d\t|%d\t|%s\t\t|%s\t\t\t|%s\t\t\t|%d\t\t|\n",
             			arrayCliente[i].idUnico,
 						arrayCliente[i].cuit,
 						arrayCliente[i].empresa,
@@ -457,40 +457,77 @@ int cliente_print_with_pend(Cliente arrayCliente[], int sizeCliente, Recoleccion
     }
     return retorno;
 }
-/*
-int cliente_info_getSalaryMedia(Cliente arrayEmployee[], int size)
+
+int cliente_print_pend(Cliente arrayCliente[], int sizeCliente, Recoleccion arrayRecoleccion[], int sizeRec)
 {
-	int i;
+    int retorno=-1;
+    int i,j;
 
-	int employeesUpperMediaSalary = 0;
-	float salaryProm = 0;
-    int retorno = -1;
-    float salaryAcum = 0;
-    int contSalary = 0;
-
-    if(arrayEmployee!= NULL && size>=0)
+    if(arrayCliente!=NULL && sizeCliente>=0)
     {
-        for(i=0;i<size;i++)
+    	printf(	"#########################################################################################################################\n"
+    			"|CUIT\t|DIRECCION\t|KG A RECOLECTAR\t\t|\n"
+    			"#########################################################################################################################\n");
+
+        for(i=0;i<sizeRec;i++)
         {
-            if(arrayEmployee[i].isEmpty==0)
+        	if(arrayRecoleccion[i].estado != 0)
+                continue;
+            else
             {
-            	//salaryAcum = salaryAcum + arrayEmployee[i].salary;
-            	contSalary++;
+            	for(j=0;j<sizeCliente;j++)
+            	{
+            		if(arrayRecoleccion[i].id_cliente == arrayCliente[j].idUnico)
+            		{
+        				//fin cont de pendientes
+                    	printf("|%d\t|%s\t|%d\t\t\n",
+        						arrayCliente[j].cuit,
+        						arrayCliente[j].direccion,
+        						arrayRecoleccion[i].kg_residuos_a_procesar);
+            		}
+            	}
             }
         }
-
-        salaryProm = salaryAcum / contSalary;
-
-        for(i=0;i<size;i++)
-        {
-        	if(arrayEmployee[i].salary > salaryProm)
-        	{
-        		employeesUpperMediaSalary++;
-        	}
-        }
-        printf("\n\t\tEl salario promedio es de: %f con un total de %i empleados que superan la media\n\t\tEl total de sueldos a pagar es de: %f", salaryProm, employeesUpperMediaSalary, salaryAcum);
-        retorno = 0;
+        retorno=0;
+        stuff_sleep(1);
     }
     return retorno;
 }
-*/
+
+int cliente_print_comp(Cliente arrayCliente[], int sizeCliente, Recoleccion arrayRecoleccion[], int sizeRec)
+{
+    int retorno=-1;
+    int i,j;
+
+    if(arrayCliente!=NULL && sizeCliente>=0)
+    {
+    	printf(	"#########################################################################################################################\n"
+    			"|CUIT\t|DIRECCION\t|kg_HDPE\t|kg_LDPE\t|kg_PP\t|\n"
+    			"#########################################################################################################################\n");
+
+        for(i=0;i<sizeRec;i++)
+        {
+        	if(arrayRecoleccion[i].estado != 1)
+                continue;
+            else
+            {
+            	for(j=0;j<sizeCliente;j++)
+            	{
+            		if(arrayRecoleccion[i].id_cliente == arrayCliente[j].idUnico)
+            		{
+        				//fin cont de pendientes
+                    	printf("|%d\t|%s\t|%d\t|%d\t|%d\t\n",
+        						arrayCliente[j].cuit,
+        						arrayCliente[j].direccion,
+        						arrayRecoleccion[i].kg_HDPE,
+								arrayRecoleccion[i].kg_LDPE,
+								arrayRecoleccion[i].kg_PP);
+            		}
+            	}
+            }
+        }
+        retorno=0;
+    }
+    return retorno;
+}
+
