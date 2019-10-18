@@ -29,5 +29,6 @@ void stuff_showFichaje();
 void stuff_showClientePendientes();
 void stuff_showRecoleccionesPendientes();
 void stuff_showRecoleccionesCompletas();
+void stuff_showInformesMenu();
 
 #endif /* STUFF_H_ */

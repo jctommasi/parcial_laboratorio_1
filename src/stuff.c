@@ -46,7 +46,27 @@ void stuff_showMenu()
 			"\n\t\t\t\t\t\t6. Imprimir Clientes"
 			"\n\t\t\t\t\t\t7. Imprimir pedidos de Clientes"
 			"\n\t\t\t\t\t\t8. Imprimir pedidos Procesados"
-			"\n\t\t\t\t\t\t9. Salir\n\n");
+			"\n\t\t\t\t\t\t9. Informes"
+			"\n\t\t\t\t\t\t10. Salir\n\n");
+	printf("\033[0m");
+}
+
+void stuff_showInformesMenu()
+{
+	printf("\033[0;31m");
+	printf("\t\tQue informe desea realizar?\n"
+			"\n\t\t\t\t\t\t1. Cliente con mas pedidos pendientes"
+			"\n\t\t\t\t\t\t2. Cliente con mas pedidos completados"
+			"\n\t\t\t\t\t\t3. Cliente con mas pedidos"
+			"\n\t\t\t\t\t\t4. Cliente que reciclo mas kg"
+			"\n\t\t\t\t\t\t5. Cliente que reciclo menos kg"
+			"\n\t\t\t\t\t\t6. Cant Clientes que reciclaron mas de 1000kg"
+			"\n\t\t\t\t\t\t7. Cant Clientes que reciclaron menos de 1000kg"
+			"\n\t\t\t\t\t\t8. Imprimir pedidos completados con porcentaje"
+			"\n\t\t\t\t\t\t9. Pedidos por localidad"
+			"\n\t\t\t\t\t\t10. Cant. de kg de polipropileno promedio por cliente"
+			"\n\t\t\t\t\t\t11. Enumerar kg de tipo de plastico por cuit"
+			"\n\t\t\t\t\t\t12. Salir\n\n");
 	printf("\033[0m");
 }
 

@@ -137,6 +137,7 @@ int utn_getUnsignedInt(char* msg,char* msgError,int minSize,int maxSize,int min,
             {
                 if(isValidNumber(bufferStr)==1)
                 {
+
                     *input=atoi(bufferStr);     // unsigned long int strtoul(const char *str, char **end, int base)?
                     retorno=0;
                     break;

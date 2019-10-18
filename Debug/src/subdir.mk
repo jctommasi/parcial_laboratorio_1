@@ -7,6 +7,7 @@ C_SRCS += \
 ../src/arrayCliente.c \
 ../src/arrayRecoleccion.c \
 ../src/arrayf.c \
+../src/informes.c \
 ../src/main.c \
 ../src/stuff.c \
 ../src/utn.c 
@@ -15,6 +16,7 @@ OBJS += \
 ./src/arrayCliente.o \
 ./src/arrayRecoleccion.o \
 ./src/arrayf.o \
+./src/informes.o \
 ./src/main.o \
 ./src/stuff.o \
 ./src/utn.o 
@@ -23,6 +25,7 @@ C_DEPS += \
 ./src/arrayCliente.d \
 ./src/arrayRecoleccion.d \
 ./src/arrayf.d \
+./src/informes.d \
 ./src/main.d \
 ./src/stuff.d \
 ./src/utn.d 
