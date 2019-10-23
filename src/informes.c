@@ -22,7 +22,7 @@ int informes_contKgClientComp(Recoleccion array[], int size, int idCliente)
 
 int informes_clienteConMasKg(Recoleccion array[], int size)
 {
-	int i;
+	int i, actualKgRecic;
 	int cantKg = 0;
 	int idClienteMasKg;
 
@@ -30,10 +30,15 @@ int informes_clienteConMasKg(Recoleccion array[], int size)
 	{
 		for(i=0;i<size;i++)
 		{
-			if(cantKg < informes_contKgClientComp(array, size, array[i].id_cliente))
+			if(array[i].estado == 1)
 			{
-				cantKg = informes_enumPedidosPend(array, size, array[i].id_cliente);
-				idClienteMasKg = array[i].id_cliente;
+				actualKgRecic = array[i].kg_HDPE + array[i].kg_LDPE + array[i].kg_PP;
+
+				if(cantKg < actualKgRecic)
+				{
+					cantKg = actualKgRecic;
+					idClienteMasKg = array[i].id_cliente;
+				}
 			}
 		}
 	}
@@ -174,7 +179,7 @@ int informes_clienteConMasPedidos(Recoleccion array[], int size)
 
 int informes_clienteConMenosKg(Recoleccion array[], int size)
 {
-	int i;
+	int i, actualKgRecic;
 	int cantKg = informes_clienteConMasKgCant(array, size);
 	int idClienteMenosKg = 0;
 
@@ -182,10 +187,15 @@ int informes_clienteConMenosKg(Recoleccion array[], int size)
 	{
 		for(i=0;i<size;i++)
 		{
-			if(cantKg > informes_contKgClientComp(array, size, array[i].id_cliente))
+			if(array[i].estado == 1)
 			{
-				cantKg =  informes_contKgClientComp(array, size, array[i].id_cliente);
-				idClienteMenosKg = array[i].id_cliente;
+				actualKgRecic = array[i].kg_HDPE + array[i].kg_LDPE + array[i].kg_PP;
+
+				if(cantKg > actualKgRecic)
+				{
+					cantKg = actualKgRecic;
+					idClienteMenosKg = array[i].id_cliente;
+				}
 			}
 		}
 	}
@@ -225,7 +235,7 @@ int informes_sortPedidosRecoleccion(Recoleccion array[], int size)
 
 int informes_cantClienteConMas1000Kg(Recoleccion array[], int size)
 {
-	int i,lastId;
+	int i,lastId, actualKgRecic;
 	int cantKg = 1000;
 	int cantClientes = 0;
 
@@ -235,19 +245,23 @@ int informes_cantClienteConMas1000Kg(Recoleccion array[], int size)
 
 		for(i=0;i<size;i++)
 		{
-			if(cantKg < informes_contKgClientComp(array, size, array[i].id_cliente) && lastId != array[i].id_cliente)
+			if (array[i].estado == 1)
 			{
-				lastId = array[i].id_cliente;
-				cantClientes++;
+				actualKgRecic = array[i].kg_HDPE + array[i].kg_LDPE + array[i].kg_PP;
+				if(cantKg < actualKgRecic && lastId != array[i].id_cliente)
+				{
+					lastId = array[i].id_cliente;
+					cantClientes++;
+				}
 			}
 		}
 	}
 	return cantClientes;
 }
-int informes_cantClienteConMenos1000Kg(Recoleccion array[], int size)
+int informes_cantClienteConMenos100Kg(Recoleccion array[], int size)
 {
-	int i,lastId;
-	int cantKg = 1000;
+	int i,lastId, actualKgRecic;
+	int cantKg = 100;
 	int cantClientes = 0;
 
 	if(array!= NULL && size>=0)
@@ -256,10 +270,14 @@ int informes_cantClienteConMenos1000Kg(Recoleccion array[], int size)
 
 		for(i=0;i<size;i++)
 		{
-			if(cantKg < informes_contKgClientComp(array, size, array[i].id_cliente) && lastId != array[i].id_cliente)
+			if (array[i].estado == 1)
 			{
-				lastId = array[i].id_cliente;
-				cantClientes++;
+				actualKgRecic = array[i].kg_HDPE + array[i].kg_LDPE + array[i].kg_PP;
+				if(cantKg > actualKgRecic && lastId != array[i].id_cliente)
+				{
+					lastId = array[i].id_cliente;
+					cantClientes++;
+				}
 			}
 		}
 	}
@@ -282,7 +300,7 @@ int informes_paginateAndPorcentaje(Recoleccion array[], int size, Cliente arrayC
             else
 
 				kg_reciclados = array[i].kg_HDPE + array[i].kg_LDPE + array[i].kg_PP;
-				porcentaje = (array[i].kg_residuos_a_procesar * 100) / kg_reciclados;
+				porcentaje = (kg_reciclados * 100) / array[i].kg_residuos_a_procesar;
 				cuit_cliente = getCuitByIdCliente(arrayCliente,sizeCliente, array[i].id_cliente);
 
 				printf("|%d\t|%d\t|%d\t\t|\n",array[i].idUnico,cuit_cliente,porcentaje);

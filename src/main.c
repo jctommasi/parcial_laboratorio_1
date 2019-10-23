@@ -155,7 +155,7 @@ int main(void)
 						printf("cant de clientes con mas de 1000 kg es %d", clienteMas1000Kg);
 						break;
 					case 7:
-						clienteMenos1000Kg = informes_cantClienteConMenos1000Kg(arrayRecoleccion, DB_LENGHT_RECOLECCION);
+						clienteMenos1000Kg = informes_cantClienteConMenos100Kg(arrayRecoleccion, DB_LENGHT_RECOLECCION);
 						printf("cant de clientes con menos de 1000 kg es %d", clienteMenos1000Kg);
 						break;
 					case 8:
